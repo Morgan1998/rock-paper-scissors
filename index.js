@@ -1,16 +1,33 @@
-playGame(5, getHumanChoice, getComputerChoice)
+function getOneTwoOrThree() {
+  return Math.floor(Math.random() * 3) + 1;
+}
 
+function getComputerChoice() {
+  const oneTwoOrThree = getOneTwoOrThree()
+  if (oneTwoOrThree === 1) {
+    return "rock";
+  } 
+  else if (oneTwoOrThree === 2) {
+    return "paper";
+  }
+  else if (oneTwoOrThree === 3) {
+    return "scissors";
+  }
+}
+
+function getHumanChoice() {
+  const input = prompt("Choose your move: ", "rock, paper, scissors");
+  if (input.toLowerCase() === "rock" || input.toLowerCase() === "paper" || input.toLowerCase() === "scissors") {
+    return input.toLowerCase();
+  } else {
+    console.log("Invalid choice, please try again.");
+    return getHumanChoice();
+  }
+}
 
 function playGame(rounds, humanChoiceProvider, computerChoiceProvider) {
   let computerScore = 0;
   let humanScore = 0;
-
-  for (let i = 1; i <= rounds; i++) {
-    playRound(humanChoiceProvider, computerChoiceProvider);
-    console.log(`PC score is ${computerScore}, your score is ${humanScore}`)
-  }
-
-  declareWinner();
 
   function declareWinner() {
     if (computerScore > humanScore) {
@@ -67,38 +84,18 @@ function playGame(rounds, humanChoiceProvider, computerChoiceProvider) {
     }
   }
 
+    for (let i = 1; i <= rounds; i++) {
+    playRound(humanChoiceProvider, computerChoiceProvider);
+    console.log(`PC score is ${computerScore}, your score is ${humanScore}`)
+  }
 
+  declareWinner();
 }
 
-function getOneTwoOrThree() {
-  return Math.floor(Math.random() * 3) + 1;
-}
+playGame(5, getHumanChoice, getComputerChoice)
 
-function getComputerChoice() {
-  const oneTwoOrThree = getOneTwoOrThree()
-  if (oneTwoOrThree === 1) {
-    return "rock";
-  } 
-  else if (oneTwoOrThree === 2) {
-    return "paper";
-  }
-  else if (oneTwoOrThree === 3) {
-    return "scissors";
-  }
-  else {
-    return "Uh oh, something went wrong";
-  }
-}
 
-function getHumanChoice() {
-  const input = prompt("Choose your move: ", "rock, paper, scissors");
-  if (input === "rock" || input === "paper" || input === "scissors") {
-    return input.toLowerCase();
-  } else {
-    console.log("Invalid choice, please try again.");
-    return getHumanChoice();
-  }
-}
+
 
 
 
