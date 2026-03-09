@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-    <script src="index.js"></script>
+  <section id="controls">
+    <h1>Choose your weapon</h1>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+  </section>
+
+  <div id="results" aria-live="polite">Let's see who wins…</div>
+
+  <div class="scores">
+    <p id="user-score" class="score">User: 0</p>
+    <p id="pc-score" class="score">Computer: 0</p>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
