@@ -1,3 +1,11 @@
+const controlsDiv = document.querySelector("#controls");
+const resultsDiv = document.querySelector("#results");
+const userScoreP = document.querySelector("#user-score");
+const computerScoreP = document.querySelector("#pc-score");
+
+let userScore = 0;
+let computerScore = 0;
+
 function getOneTwoOrThree() {
   return Math.floor(Math.random() * 3) + 1;
 }
@@ -91,13 +99,49 @@ function playGame(rounds, humanChoiceProvider, computerChoiceProvider) {
 
   declareWinner();
 }
+ 
+controlsDiv.addEventListener("click", function(event) {
+  if (event.target.tagName === "BUTTON") {
+    const humanChoice = event.target.id;
+    const computerChoice = getComputerChoice();
 
-playGame(5, getHumanChoice, getComputerChoice)
+    if (humanChoice === computerChoice) {
+      resultsDiv.textContent = "It's a draw! Go again.";
+    }
+    else if (
+      (humanChoice === "rock" && computerChoice === "scissors") ||
+      (humanChoice === "paper" && computerChoice === "rock") ||
+      (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+      userScore += 1;
+      resultsDiv.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+    }
+    else {
+      computerScore += 1;
+      resultsDiv.textContent = `The computer wins! ${computerChoice} beats ${humanChoice}`;
+    };
 
+    userScoreP.textContent = `User: ${userScore}`;
+    computerScoreP.textContent = `Computer: ${computerScore}`;
 
+    function endGame() {
+      if (userScore === 5 || computerScore === 5) {
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(btn => btn.disabled = true);
+        
+        document.querySelector("#status").textContent = "Game Over!";
+      }
+    }
 
-
-
-
-
-
+    switch (true) { 
+      case (userScore >= 5):
+        resultsDiv.textContent = `${humanChoice} beats ${computerChoice}... You win! You got to 5 points first.`;
+        endGame();
+        break;
+      case (computerScore >= 5):
+        resultsDiv.textContent = `Uh oh... ${computerChoice} beats ${humanChoice}. The computer beat ya to 5 points. Better luck next time.`;
+        endGame();
+        break;
+    }
+  }
+});
